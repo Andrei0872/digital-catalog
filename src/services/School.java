@@ -64,7 +64,7 @@ public class School {
   private void ensureStudentExists (Student student) {
     int studentId = student.getId();
     boolean doesStudentExist = students.containsKey(studentId);
-    if (doesStudentExist) {
+    if (!doesStudentExist) {
       this.students.put(studentId, student);
     }
   };
@@ -72,7 +72,7 @@ public class School {
   private void ensureTeacherExists (Teacher teacher) {
     int teacherId = teacher.getId();
     boolean doesTeacherExist = teachers.containsKey(teacherId);
-    if (doesTeacherExist) {
+    if (!doesTeacherExist) {
       this.teachers.put(teacherId, teacher);
     }
   }

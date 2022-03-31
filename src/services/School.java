@@ -1,6 +1,7 @@
 package services;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,6 +39,19 @@ public class School {
 
     teacher.addClassById(cls.getId());
   };
+
+  public Collection<Teacher> getTeachers () {
+    return teachers.values();
+  }
+
+  public Collection<Student> getStudents() {
+    return students.values();
+  }
+
+  public Collection<Class> getClasses() {
+    return classes.values();
+  }
+
 
   private void ensureClassExists (Class cls) {
     int classId = cls.getId();

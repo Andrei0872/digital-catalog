@@ -6,7 +6,7 @@ import java.util.Set;
 
 import entities.Class;
 import entities.SchoolPerson;
-import entities.Student;
+import entities.Student.Student;
 
 public class Teacher extends SchoolPerson {
   private Set<Integer> classesIds = new HashSet<Integer>();

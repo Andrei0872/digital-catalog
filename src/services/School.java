@@ -8,7 +8,8 @@ import java.util.Map;
 
 import entities.Class;
 import entities.Student;
-import entities.Teacher;
+import entities.Teacher.Teacher;
+import entities.Teacher.TeacherDeserialized;
 
 public class School {
   private final String name;
@@ -52,6 +53,12 @@ public class School {
     return classes.values();
   }
 
+  public TeacherDeserialized getTeacherDeserialized (int teacherId) {
+    Teacher teacher = teachers.get(teacherId);
+    Collection<Class> classes = teacher.getClassesIds().stream().map(classId -> this.classes.get(classId)).toList();
+
+    return new TeacherDeserialized(teacher, classes);
+  }
 
   private void ensureClassExists (Class cls) {
     int classId = cls.getId();

@@ -1,9 +1,9 @@
-import entities.Teacher;
-
 import java.time.LocalDate;
+import java.util.Collection;
 
 import entities.Class;
 import entities.Student;
+import entities.Teacher.Teacher;
 import services.School;
 
 public class App {
@@ -39,11 +39,21 @@ public class App {
 
         school.addTeacherToClass(t1, c1);
         school.addTeacherToClass(t2, c1);
+        school.addTeacherToClass(t1, c2);
 
         school.addStudentToClass(s1, c1);
         school.addStudentToClass(s2, c1);
         school.addStudentToClass(s3, c1);
 
         t1.assignGradeToStudent(10, LocalDate.of(2022, 4, 19), c1, s1);
+
+        // Collection<Student> sts = school.getStudents();
+        // System.out.println(sts.size());
+
+        // for (Student s : sts) {
+        //     System.out.println(s.toString());
+        // }
+
+        System.out.println(school.getTeacherDeserialized(t1.getId()));
     }
 }

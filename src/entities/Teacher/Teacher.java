@@ -1,8 +1,12 @@
-package entities;
+package entities.Teacher;
 
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
+
+import entities.Class;
+import entities.SchoolPerson;
+import entities.Student;
 
 public class Teacher extends SchoolPerson {
   private Set<Integer> classesIds = new HashSet<Integer>();
@@ -13,6 +17,10 @@ public class Teacher extends SchoolPerson {
 
   public void addClassById(int classId) {
     classesIds.add(classId);
+  }
+
+  public Set<Integer> getClassesIds () {
+    return classesIds;
   }
 
   public void assignGradeToStudent(int gradeValue, LocalDate gradeDate, Class cls, Student student) throws Exception {

@@ -2,7 +2,7 @@ import java.time.LocalDate;
 import java.util.Collection;
 
 import entities.Class;
-import entities.Student;
+import entities.Student.Student;
 import entities.Teacher.Teacher;
 import services.School;
 
@@ -44,8 +44,12 @@ public class App {
         school.addStudentToClass(s1, c1);
         school.addStudentToClass(s2, c1);
         school.addStudentToClass(s3, c1);
+        school.addStudentToClass(s1, c2);
 
         t1.assignGradeToStudent(10, LocalDate.of(2022, 4, 19), c1, s1);
+        t1.assignGradeToStudent(5, LocalDate.of(2022, 3, 19), c1, s1);
+        t2.assignGradeToStudent(8, LocalDate.of(2022, 5, 19), c1, s1);
+        t1.assignGradeToStudent(9, LocalDate.of(2022, 5, 19), c2, s1);
 
         // Collection<Student> sts = school.getStudents();
         // System.out.println(sts.size());
@@ -54,6 +58,7 @@ public class App {
         //     System.out.println(s.toString());
         // }
 
-        System.out.println(school.getTeacherDeserialized(t1.getId()));
+        // System.out.println(school.getTeacherDeserialized(t1.getId()));
+        System.out.println(school.getStudentDeserialized(s1.getId()));
     }
 }

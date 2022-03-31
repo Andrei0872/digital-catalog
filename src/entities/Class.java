@@ -3,6 +3,7 @@ package entities;
 import java.util.HashSet;
 import java.util.Set;
 
+import entities.Student.Student;
 import utils.IHasIdentifier;
 
 public class Class implements IHasIdentifier {

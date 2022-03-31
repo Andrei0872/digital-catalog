@@ -7,7 +7,9 @@ import java.util.List;
 import java.util.Map;
 
 import entities.Class;
-import entities.Student;
+import entities.Grade.GradeDeserialized;
+import entities.Student.Student;
+import entities.Student.StudentDeserialized;
 import entities.Teacher.Teacher;
 import entities.Teacher.TeacherDeserialized;
 
@@ -58,6 +60,18 @@ public class School {
     Collection<Class> classes = teacher.getClassesIds().stream().map(classId -> this.classes.get(classId)).toList();
 
     return new TeacherDeserialized(teacher, classes);
+  }
+
+  public StudentDeserialized getStudentDeserialized (int studentId) {
+    Student student = students.get(studentId);
+    Collection<GradeDeserialized> grades = student.getGrades()
+      .stream()
+      .map(
+        grade -> new GradeDeserialized(grade, this.teachers.get(grade.assignedBy()), this.classes.get(grade.classId()))
+      )
+      .toList();
+
+    return new StudentDeserialized(student, grades);
   }
 
   private void ensureClassExists (Class cls) {

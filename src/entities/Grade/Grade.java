@@ -1,4 +1,4 @@
-package entities;
+package entities.Grade;
 
 import java.time.LocalDate;
 

@@ -1,0 +1,27 @@
+version: '3.9'
+
+services:
+
+  db:
+    image: postgres:13.6
+    environment:
+      POSTGRES_PASSWORD: pass123
+      POSTGRES_USER: andrei
+      POSTGRES_DB: digital_catalog
+    restart: on-failure
+    healthcheck:
+      test: "psql -U andrei -d digital_catalog -c 'select 1;'"
+      interval: 1s
+      retries: 20
+    volumes:
+      - database_digital_catalog_dev:/var/lib/postgresql/data
+    networks:
+      - digital_catalog_dev
+    ports:
+      - "5432:5432"
+
+volumes:
+  database_digital_catalog_dev:
+
+networks:
+  digital_catalog_dev:

@@ -17,4 +17,7 @@ public class TeacherService {
         System.out.println(isOk);
     }
 
+    public List<Teacher> getAllTeachers () {
+        return teacherRepository.getAll();
+    }
 }

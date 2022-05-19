@@ -1,10 +1,18 @@
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.Scanner;
 
+import db.Database;
 import entities.Class;
 import entities.Student.Student;
 import entities.Teacher.Teacher;
+import repositories.TeacherRepository;
 import services.School;
+import services.TeacherService;
 
 public class App {
     public static void main(String[] args) throws Exception {
@@ -59,6 +67,10 @@ public class App {
         // }
 
         // System.out.println(school.getTeacherDeserialized(t1.getId()));
-        System.out.println(school.getStudentDeserialized(s1.getId()));
+        // System.out.println(school.getStudentDeserialized(s1.getId()));
+        
+        TeacherService ts = new TeacherService();
+        // ts.insertTeacher(t2);
+        System.out.println(ts.getAllTeachers());
     }
 }

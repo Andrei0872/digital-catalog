@@ -35,4 +35,31 @@ public class TeacherRepository {
         }
     }
 
+    public List<Teacher> getAll () {
+        Connection conn = Database.getConnection();
+        String stmtString = "SELECT * from teacher";
+
+        List<Teacher> teachers = new ArrayList<>();
+
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(stmtString);
+
+            while (rs.next()) {
+                teachers.add(convertResultSetToTeacher(rs));
+            }
+
+            return teachers;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private Teacher convertResultSetToTeacher (ResultSet rs) throws SQLException {
+        Teacher t = new Teacher(rs.getString("name"), rs.getInt("age"), rs.getString("email"));
+        t.setId(rs.getInt("id"));
+
+        return t;
+    }
 }

@@ -20,8 +20,22 @@ services:
     ports:
       - "5432:5432"
 
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: foo@bar.com
+      PGADMIN_DEFAULT_PASSWORD: pass123
+    ports:
+      - "1337:80"
+
+    volumes:
+      - database_digital_catalog_pgadmin:/var/lib/pgadmin
+    networks:
+      - digital_catalog_dev
+
 volumes:
   database_digital_catalog_dev:
+  database_digital_catalog_pgadmin:
 
 networks:
   digital_catalog_dev:

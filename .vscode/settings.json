@@ -2,6 +2,9 @@
     "java.project.sourcePaths": ["src"],
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
-        "lib/**/*.jar"
-    ]
+        "lib/**/*.jar",
+        "/home/anduser/Downloads/postgresql-42.3.5.jar"
+    ],
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "java.jdt.ls.vmargs": "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx2G -Xms100m"
 }

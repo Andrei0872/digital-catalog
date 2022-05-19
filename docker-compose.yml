@@ -15,6 +15,7 @@ services:
       retries: 20
     volumes:
       - database_digital_catalog_dev:/var/lib/postgresql/data
+      - ./db:/docker-entrypoint-initdb.d/
     networks:
       - digital_catalog_dev
     ports:

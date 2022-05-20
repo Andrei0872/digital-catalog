@@ -9,15 +9,11 @@ import utils.IHasIdentifier;
 public class Class implements IHasIdentifier {
   private Set<Integer> studentsIDs = new HashSet<Integer>();
 
-  private static int IDs = 0;
-  private final int ID;
+  private int ID = -1;
 
-  private final String subject;
+  private String subject;
 
   public Class(String subject) {
-    IDs++;
-    this.ID = IDs;
-
     this.subject = subject;
   }
 
@@ -25,9 +21,17 @@ public class Class implements IHasIdentifier {
     return subject;
   }
 
+  public void setSubject (String newSubject) {
+    this.subject = newSubject;
+  }
+
   @Override
   public int getId() {
     return ID;
+  }
+
+  public void setId (int newId) {
+    this.ID = newId;
   }
 
   @Override

@@ -13,6 +13,7 @@ import entities.Class;
 import entities.Student.Student;
 import entities.Teacher.Teacher;
 import repositories.TeacherRepository;
+import services.ClassService;
 import services.School;
 import services.StudentService;
 import services.TeacherService;
@@ -87,7 +88,7 @@ public class App {
         // // ts.deleteTeacher(teacher2);
         // System.out.println(ts.getAllTeachers());
 
-        var studentService = new StudentService();
+        // var studentService = new StudentService();
         // var students = studentService.getAllStudents();
 
         // studentService.insertStudent(s1);
@@ -100,6 +101,20 @@ public class App {
         // updatedStudent.setName(updatedStudent.getName().toUpperCase());
         // studentService.updateStudentById(updatedStudent.getId(), updatedStudent);
 
-        System.out.println(studentService.getAllStudents());
+        // System.out.println(studentService.getAllStudents());
+
+        var classService = new ClassService();
+        var classes = classService.getAllClasses();
+        
+        // classService.insertClass(c1);
+        // classService.insertClass(c2);
+
+        // classService.deleteClass(classes.get(0));
+
+        var updatedClass = classes.get(0);
+        updatedClass.setSubject(updatedClass.getSubject().toUpperCase());
+        classService.updateClassById(updatedClass.getId(), updatedClass);
+
+        System.out.println(classService.getAllClasses());
     }
 }

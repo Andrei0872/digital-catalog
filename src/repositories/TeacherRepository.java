@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 
 import db.Database;
 import entities.Teacher.Teacher;
@@ -35,11 +34,11 @@ public class TeacherRepository {
         }
     }
 
-    public List<Teacher> getAll () {
+    public ArrayList<Teacher> getAll () {
         Connection conn = Database.getConnection();
         String stmtString = "SELECT * from teacher";
 
-        List<Teacher> teachers = new ArrayList<>();
+        ArrayList<Teacher> teachers = new ArrayList<>();
 
         try {
             Statement stmt = conn.createStatement();

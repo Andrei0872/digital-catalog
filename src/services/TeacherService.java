@@ -1,5 +1,6 @@
 package services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import entities.Teacher.Teacher;
@@ -17,7 +18,7 @@ public class TeacherService {
         System.out.println(isOk);
     }
 
-    public List<Teacher> getAllTeachers () {
+    public ArrayList<Teacher> getAllTeachers () {
         return teacherRepository.getAll();
     }
 }

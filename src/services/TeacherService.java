@@ -21,4 +21,9 @@ public class TeacherService {
     public ArrayList<Teacher> getAllTeachers () {
         return teacherRepository.getAll();
     }
+
+    public void deleteTeacher (Teacher t) {
+        boolean isOk = teacherRepository.deleteOne(t);
+        System.out.println(isOk);
+    }
 }

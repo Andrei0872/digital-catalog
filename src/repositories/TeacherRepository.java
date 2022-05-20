@@ -55,6 +55,36 @@ public class TeacherRepository {
         }
     }
 
+    public boolean deleteOne (Teacher t) {
+        try {
+            if (!t.hasIdSet()) {
+                throw new Exception("This teacher can't be deleted - it has no ID set!");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        
+        Connection conn = Database.getConnection();
+        String stmtString = "DELETE FROM teacher where id = ?";
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement(stmtString);
+
+            stmt.setInt(1, t.getId());
+
+            int affectedRows = stmt.executeUpdate();
+            if (affectedRows > 0) {
+                return true;
+            }
+
+            return false;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     private Teacher convertResultSetToTeacher (ResultSet rs) throws SQLException {
         Teacher t = new Teacher(rs.getString("name"), rs.getInt("age"), rs.getString("email"));
         t.setId(rs.getInt("id"));

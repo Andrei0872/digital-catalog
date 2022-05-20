@@ -3,7 +3,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Scanner;
 
 import db.Database;
@@ -70,7 +72,13 @@ public class App {
         // System.out.println(school.getStudentDeserialized(s1.getId()));
         
         TeacherService ts = new TeacherService();
-        // ts.insertTeacher(t2);
+
+        ArrayList<Teacher> teachers = ts.getAllTeachers();
+        // var teacher2 = teachers.get(1);
+
+        ts.insertTeacher(t2);
+        
+        // ts.deleteTeacher(teacher2);
         System.out.println(ts.getAllTeachers());
     }
 }

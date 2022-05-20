@@ -74,10 +74,15 @@ public class App {
         TeacherService ts = new TeacherService();
 
         ArrayList<Teacher> teachers = ts.getAllTeachers();
-        // var teacher2 = teachers.get(1);
+        var teacher2 = teachers.get(1);
 
-        ts.insertTeacher(t2);
-        
+        teacher2.setName("TEACHER2");
+
+        // ts.insertTeacher(t2);
+        // teacher2
+
+        ts.updateTeacherById(teacher2.getId(), teacher2);
+
         // ts.deleteTeacher(teacher2);
         System.out.println(ts.getAllTeachers());
     }

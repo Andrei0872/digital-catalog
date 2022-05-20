@@ -85,6 +85,30 @@ public class TeacherRepository {
         }
     }
 
+    public boolean updateOneById (int teacherId, Teacher newTeacher) {
+        Connection conn = Database.getConnection();
+        String stmtString = "UPDATE teacher SET email = ?, name = ?, age = ? where id = ?";
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement(stmtString);
+
+            stmt.setString(1, newTeacher.getEmail());
+            stmt.setString(2, newTeacher.getName());
+            stmt.setInt(3, newTeacher.getAge());
+            stmt.setInt(4, teacherId);
+
+            int affectedRows = stmt.executeUpdate();
+            if (affectedRows > 0) {
+                return true;
+            }
+
+            return false;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     private Teacher convertResultSetToTeacher (ResultSet rs) throws SQLException {
         Teacher t = new Teacher(rs.getString("name"), rs.getInt("age"), rs.getString("email"));
         t.setId(rs.getInt("id"));

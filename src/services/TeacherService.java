@@ -26,4 +26,9 @@ public class TeacherService {
         boolean isOk = teacherRepository.deleteOne(t);
         System.out.println(isOk);
     }
+
+    public void updateTeacherById (int teacherId, Teacher newTeacher) {
+        boolean isOk = teacherRepository.updateOneById(teacherId, newTeacher);
+        System.out.println(isOk);
+    }
 }

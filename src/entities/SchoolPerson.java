@@ -3,8 +3,8 @@ package entities;
 import utils.IHasIdentifier;
 
 public class SchoolPerson extends Person implements IHasIdentifier {
-  private final String email;
-  private int ID = -1;
+  protected String email;
+  protected int ID = -1;
 
   public SchoolPerson(String name, int age, String email) {
     super(name, age);
@@ -22,6 +22,10 @@ public class SchoolPerson extends Person implements IHasIdentifier {
 
   public String getEmail () {
     return email;
+  }
+
+  public void setEmail (String newEmail) {
+    this.email = newEmail;
   }
 
   public boolean hasIdSet () {

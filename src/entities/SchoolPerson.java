@@ -24,6 +24,10 @@ public class SchoolPerson extends Person implements IHasIdentifier {
     return email;
   }
 
+  public boolean hasIdSet () {
+    return this.ID != -1;
+  }
+
   @Override
   public String toString() {
     return String.format("ID: %s, Name: %s, Age: %s, Email: %s", ID, this.name, this.age, this.email);

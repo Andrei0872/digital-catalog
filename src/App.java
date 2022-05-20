@@ -14,6 +14,7 @@ import entities.Student.Student;
 import entities.Teacher.Teacher;
 import repositories.TeacherRepository;
 import services.School;
+import services.StudentService;
 import services.TeacherService;
 
 public class App {
@@ -71,19 +72,34 @@ public class App {
         // System.out.println(school.getTeacherDeserialized(t1.getId()));
         // System.out.println(school.getStudentDeserialized(s1.getId()));
         
-        TeacherService ts = new TeacherService();
+        // TeacherService ts = new TeacherService();
 
-        ArrayList<Teacher> teachers = ts.getAllTeachers();
-        var teacher2 = teachers.get(1);
+        // ArrayList<Teacher> teachers = ts.getAllTeachers();
+        // var teacher2 = teachers.get(1);
 
-        teacher2.setName("TEACHER2");
+        // teacher2.setName("TEACHER2");
 
-        // ts.insertTeacher(t2);
-        // teacher2
+        // // ts.insertTeacher(t2);
+        // // teacher2
 
-        ts.updateTeacherById(teacher2.getId(), teacher2);
+        // ts.updateTeacherById(teacher2.getId(), teacher2);
 
-        // ts.deleteTeacher(teacher2);
-        System.out.println(ts.getAllTeachers());
+        // // ts.deleteTeacher(teacher2);
+        // System.out.println(ts.getAllTeachers());
+
+        var studentService = new StudentService();
+        // var students = studentService.getAllStudents();
+
+        // studentService.insertStudent(s1);
+        // studentService.insertStudent(s2);
+        // studentService.insertStudent(s3);
+
+        // studentService.deleteStudent(students.get(0));
+
+        // var updatedStudent = students.get(0);
+        // updatedStudent.setName(updatedStudent.getName().toUpperCase());
+        // studentService.updateStudentById(updatedStudent.getId(), updatedStudent);
+
+        System.out.println(studentService.getAllStudents());
     }
 }

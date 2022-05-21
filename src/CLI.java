@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 import entities.Class;
@@ -38,6 +41,8 @@ public class CLI {
     10. Print a Class' Students
 """;
 
+    private static final String SEPARATOR = "=".repeat(80);
+
     public CLI () {
         this.scanner = new Scanner(System.in);
     }
@@ -47,17 +52,24 @@ public class CLI {
     }
 
     private void start () {
-        // TODO: maybe clear screen
-        CLI.showMenu();
+        boolean shouldContinue = true;
         
-        System.out.print("Action: ");
-        String action = this.scanner.nextLine();
-        
-        try {
-            this.parseAction(action);
-        } catch (Exception e) {
-            e.printStackTrace();
+        while (shouldContinue) {
+            CLI.showMenu();
+            System.out.print("Action: ");
+            String action = this.scanner.nextLine();
+            
+            try {
+                shouldContinue = this.parseAction(action);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            if (shouldContinue) {
+                System.out.println(SEPARATOR);
+            }
         }
+
 
         this.scanner.close();
     }
@@ -68,10 +80,18 @@ public class CLI {
 
     private boolean parseAction (String rawAction) throws Exception {
         String[] options = rawAction.strip().split("\\.");
-        
-        boolean shouldExit = options[0] == "0";
+
+        boolean shouldExit = options[0] == "0" || rawAction.strip().equals("0");
         if (shouldExit) {
             return false;
+        }
+
+        String[] compositeActions = new String[]{"1", "2", "3"};
+        List<String> compositeActionsList = Arrays.asList(compositeActions);
+
+
+        if (compositeActionsList.contains(options[0]) && options.length != 2) {
+            throw new Exception("1, 2 and 3 are composite actions!");
         }
         
         switch (options[0]) {
@@ -341,8 +361,6 @@ public class CLI {
         if (!classService.doesClassExist(classId)) {
             throw new Exception(String.format("The class with ID = %s does not exist!", classId));
         }
-
-        System.out.println(teacherId + " " + classId);
 
         teacherService.assignClassToTeacher(teacherId, classId);
 

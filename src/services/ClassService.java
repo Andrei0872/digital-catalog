@@ -3,6 +3,7 @@ package services;
 import java.util.ArrayList;
 
 import entities.Class;
+import entities.TeacherClass;
 import repositories.ClassRepository;
 import repositories.ClassStudentRepository;
 
@@ -78,5 +79,9 @@ public class ClassService {
             String msg = "A problem occurred while trying to add a student(ID = %s) to a class(Teacher ID = %s, Class ID = %s)";
             System.out.println(String.format(msg, studentId, teacherId, classId));
         }
+    }
+
+    public ArrayList<TeacherClass> getStudentClasses (int studentId) {
+        return this.classStudentRepository.getAllByStudentId(studentId);
     }
 }

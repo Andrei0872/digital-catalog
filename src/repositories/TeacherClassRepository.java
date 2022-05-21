@@ -81,14 +81,7 @@ public class TeacherClassRepository {
         
             ResultSet rs = stmt.executeQuery(stmtString);
             while (rs.next()) {
-                teachersClasses.add(new TeacherClass
-                    (
-                        rs.getInt("teacher_id"),
-                        rs.getString("name"),
-                        rs.getInt("class_id"),
-                        rs.getString("subject")
-                    )
-                );
+                teachersClasses.add(convertResultSetToTeacherClass(rs));
             }
 
             return teachersClasses;
@@ -96,5 +89,15 @@ public class TeacherClassRepository {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public static TeacherClass convertResultSetToTeacherClass (ResultSet rs) throws SQLException {
+        return new TeacherClass
+            (
+                rs.getInt("teacher_id"),
+                rs.getString("name"),
+                rs.getInt("class_id"),
+                rs.getString("subject")
+            );
     }
 }

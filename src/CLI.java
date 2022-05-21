@@ -34,6 +34,7 @@ public class CLI {
     6. Add a Student to a Class
     7. Assign a Grade to a Student
     8. Print a Student's Grades
+    9. Print a Student's Classes
 """;
 
     public CLI () {
@@ -97,10 +98,45 @@ public class CLI {
             case "8": {
                 return this.printStudentGrades();
             }
+            case "9": {
+                return this.printStudentClasses();
+            }
             default: {
                 throw new Exception(String.format("The action %s has not been recognized!", options[0]));
             }
         }
+    }
+
+    private boolean printStudentClasses () throws Exception {
+        var studentService = StudentService.getInstance();
+    
+        String students = studentService.getAllStudentsSerialized();
+        System.out.println("Students: \n" + students);
+        
+        System.out.print("Student ID: ");
+        int studentId = Integer.parseInt(this.scanner.nextLine());
+        if (!studentService.doesStudentExist(studentId)) {
+            throw new Exception(String.format("The student with ID = %s does not exist!", studentId));
+        }
+
+        var classService = ClassService.getInstance();
+        var studentClasses = classService.getStudentClasses(studentId);
+        if (studentClasses.isEmpty()) {
+            System.out.println("This student is not part of any class!");
+            return true;
+        }
+
+        var studentClassesSerialized = new StringBuilder();
+
+        for (int i = 0; i < studentClasses.size(); i ++) {
+            studentClassesSerialized.append(
+                String.format("%d. %s\n", i + 1, studentClasses.get(i))
+            );
+        }
+
+        System.out.println(studentClassesSerialized);
+
+        return true;
     }
 
     private boolean printStudentGrades () throws Exception {

@@ -31,6 +31,7 @@ public class CLI {
         3.4 Delete one
     4. Assign a Class to a Teacher
     5. Get Classes assigned to a Teacher
+    6. Add a Student to a Class
 """;
 
     public CLI () {
@@ -85,10 +86,50 @@ public class CLI {
             case "5": {
                 return this.getTeacherAssignedClasses();
             }
+            case "6": {
+                return this.addStudentToClass();
+            }
             default: {
                 throw new Exception(String.format("The action %s has not been recognized!", options[0]));
             }
         }
+    }
+
+    private boolean addStudentToClass () throws Exception {
+        var studentService = StudentService.getInstance();
+    
+        String students = studentService.getAllStudentsSerialized();
+        System.out.println("Students: \n" + students);
+        
+        System.out.print("Student ID: ");
+        int studentId = Integer.parseInt(this.scanner.nextLine());
+        if (!studentService.doesStudentExist(studentId)) {
+            throw new Exception(String.format("The student with ID = %s does not exist!", studentId));
+        }
+
+        var teacherService = TeacherService.getInstance();
+        var teachersClasses = teacherService.getAllTeachersAndAssignedClasses();
+
+        StringBuilder teachersClassesSerialized = new StringBuilder();
+        for (int i = 0; i < teachersClasses.size(); i++) {
+            teachersClassesSerialized.append(String.format("%d. %s\n", i + 1, teachersClasses.get(i)));
+        }
+
+        System.out.println("Teachers and their classes:\n");
+        System.out.println(teachersClassesSerialized);
+
+        System.out.print("Chosen Index: ");
+        int idx = Integer.parseInt(this.scanner.nextLine()) - 1;
+        if (idx < 0 || idx >= teachersClasses.size()) {
+            throw new Exception("Make sure the chosen index is valid!");
+        }
+
+        var chosenClass = teachersClasses.get(idx);
+
+        var classService = ClassService.getInstance();
+        classService.addStudentToClass(chosenClass.teacherId(), chosenClass.classId(), studentId);
+
+        return true;
     }
 
     private boolean getTeacherAssignedClasses () throws Exception {

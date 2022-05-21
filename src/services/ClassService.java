@@ -4,9 +4,11 @@ import java.util.ArrayList;
 
 import entities.Class;
 import repositories.ClassRepository;
+import repositories.ClassStudentRepository;
 
 public class ClassService {
     private final ClassRepository classRepository;
+    private final ClassStudentRepository classStudentRepository;
     
     private static ClassService instance;
     
@@ -20,6 +22,7 @@ public class ClassService {
 
     public ClassService () {
         this.classRepository = new ClassRepository();
+        this.classStudentRepository = new ClassStudentRepository();
     }
 
     public void insertClass (Class cls) {
@@ -65,5 +68,15 @@ public class ClassService {
             .map(Object::toString)
             .reduce((acc, crt) -> acc + "\n" + crt)
             .orElse("There are no classes!");
+    }
+
+    public void addStudentToClass (int teacherId, int classId, int studentId) {
+        boolean isOk = this.classStudentRepository.insertOne(teacherId, classId, studentId);
+        if (isOk) {
+            System.out.println("The student has been successfully added to the class!");
+        } else {
+            String msg = "A problem occurred while trying to add a student(ID = %s) to a class(Teacher ID = %s, Class ID = %s)";
+            System.out.println(String.format(msg, studentId, teacherId, classId));
+        }
     }
 }

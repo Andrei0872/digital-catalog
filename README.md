@@ -2,6 +2,14 @@
 
 The Notion page of this project can be found [here](https://hollow-soccer-dbb.notion.site/f6d54b71767b4b05bd88af7cefd9f9e7?v=35f72f45142d4402bffe7a343274c224).
 
+- [Digital Catalog](#digital-catalog)
+  - [UML](#uml)
+  - [Setting up](#setting-up)
+  - [Visualizing the Database Schema with pgAdmin](#visualizing-the-database-schema-with-pgadmin)
+  - [Using the App](#using-the-app)
+    - [A simple overview](#a-simple-overview)
+    - [Adding a student to a class](#adding-a-student-to-a-class)
+
 ## UML
 
 <div style="text-align: center;">

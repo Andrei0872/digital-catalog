@@ -34,6 +34,28 @@ public class TeacherRepository {
         }
     }
 
+    public Teacher getOneById (int id) {
+        Connection conn = Database.getConnection();
+        String stmtString = "SELECT * from teacher where id = ?";
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement(stmtString);
+
+            stmt.setInt(1, id);
+
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return convertResultSetToTeacher(rs);
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public ArrayList<Teacher> getAll () {
         Connection conn = Database.getConnection();
         String stmtString = "SELECT * from teacher";

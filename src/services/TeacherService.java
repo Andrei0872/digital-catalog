@@ -29,6 +29,9 @@ public class TeacherService {
 
     public void updateTeacherById (int teacherId, Teacher newTeacher) {
         boolean isOk = teacherRepository.updateOneById(teacherId, newTeacher);
-        System.out.println(isOk);
+    }
+
+    public Teacher getTeacherById (int id) {
+        return teacherRepository.getOneById(id);
     }
 }

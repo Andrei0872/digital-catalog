@@ -2,6 +2,7 @@ package services;
 
 import java.util.ArrayList;
 
+import entities.StudentGrade;
 import entities.Student.Student;
 import repositories.StudentGradeRepository;
 import repositories.StudentRepository;
@@ -82,5 +83,9 @@ public class StudentService {
             String msg = String.format("An error occurred while trying to assign a grade(ID = %s) to a student(ID = %) from a class(Teacher = %s, Class = %s)", gradeId, studentId, teacherId, classId);
             System.out.println(msg);
         }
+    }
+
+    public ArrayList<StudentGrade> getStudentGrades (int studentId) {
+        return this.studentGradeRepository.getAllByStudentId(studentId);
     }
 }

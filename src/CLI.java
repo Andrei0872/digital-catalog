@@ -33,6 +33,7 @@ public class CLI {
     5. Get Classes assigned to a Teacher
     6. Add a Student to a Class
     7. Assign a Grade to a Student
+    8. Print a Student's Grades
 """;
 
     public CLI () {
@@ -93,10 +94,47 @@ public class CLI {
             case "7": {
                 return this.assignGradeToStudent();
             }
+            case "8": {
+                return this.printStudentGrades();
+            }
             default: {
                 throw new Exception(String.format("The action %s has not been recognized!", options[0]));
             }
         }
+    }
+
+    private boolean printStudentGrades () throws Exception {
+        var studentService = StudentService.getInstance();
+    
+        String students = studentService.getAllStudentsSerialized();
+        System.out.println("Students: \n" + students);
+        
+        System.out.print("Student ID: ");
+        int studentId = Integer.parseInt(this.scanner.nextLine());
+        if (!studentService.doesStudentExist(studentId)) {
+            throw new Exception(String.format("The student with ID = %s does not exist!", studentId));
+        }
+
+        var studentGrades = studentService.getStudentGrades(studentId);
+        if (studentGrades.size() == 0) {
+            System.out.println("This student has no assigned grades!");
+            return true;
+        }
+
+        var studentname = studentGrades.get(0).studentName();
+
+        System.out.println(String.format("Grades of %s:", studentname));
+        
+        var studentGradesSerialized = new StringBuilder();
+        for (int i = 0; i < studentGrades.size(); i++) {
+            studentGradesSerialized.append(
+                String.format("%d. %s\n", i + 1, studentGrades.get(i))
+            );
+        }
+
+        System.out.println(studentGradesSerialized);
+
+        return true;
     }
 
     private boolean assignGradeToStudent () throws Exception {

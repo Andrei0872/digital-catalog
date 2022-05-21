@@ -29,6 +29,7 @@ public class CLI {
         3.2 Insert one
         3.3 Update one
         3.4 Delete one
+    4. Assign a Class to a Teacher
 """;
 
     public CLI () {
@@ -77,21 +78,50 @@ public class CLI {
             case "3": {
                 return this.parseClassAction(options[1]);
             }
+            case "4": {
+                return this.assignClassToTeacher();
+            }
             default: {
                 throw new Exception(String.format("The action %s has not been recognized!", options[0]));
             }
         }
     }
 
+    private boolean assignClassToTeacher () throws Exception {
+        var teacherService = TeacherService.getInstance();
+    
+        String teachers = teacherService.getAllTeachersSerialized();
+        System.out.println("Teachers: \n" + teachers);
+
+        System.out.print("Teacher ID: ");
+        int teacherId = Integer.parseInt(this.scanner.nextLine());
+        if (!teacherService.doesTeacherExist(teacherId)) {
+            throw new Exception(String.format("The teacher with ID = %s does not exist!", teacherId));
+        }
+
+        var classService = ClassService.getInstance();
+
+        String classes = classService.getAllClassesSerialized();
+        System.out.println("Classes: \n" + classes);
+
+        System.out.print("Class ID: ");
+        int classId = Integer.parseInt(this.scanner.nextLine());
+        if (!classService.doesClassExist(classId)) {
+            throw new Exception(String.format("The class with ID = %s does not exist!", classId));
+        }
+
+        System.out.println(teacherId + " " + classId);
+
+        teacherService.assignClassToTeacher(teacherId, classId);
+
+        return true;
+    }
+
     private boolean parseTeacherAction (String action) throws Exception {
         var teacherService = TeacherService.getInstance();
         switch (action) {
             case "1": {
-                String teachers = teacherService.getAllTeachers()
-                    .stream()
-                    .map(Object::toString)
-                    .reduce((acc, crt) -> acc + "\n" + crt)
-                    .orElse("There are no teachers!");
+                String teachers = teacherService.getAllTeachersSerialized();
                 System.out.println(teachers);
                 break;
             }

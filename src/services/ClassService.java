@@ -44,4 +44,18 @@ public class ClassService {
     public Class getClassById (int id) {
         return classRepository.getOneById(id);
     }
+
+    public String getAllClassesSerialized () {
+        String teachers = this.getAllClasses()
+            .stream()
+            .map(Object::toString)
+            .reduce((acc, crt) -> acc + "\n" + crt)
+            .orElse("There are no classes!");
+
+        return teachers;
+    }
+
+    public boolean doesClassExist (int id) {
+        return this.getClassById(id) != null;
+    }
 }

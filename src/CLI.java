@@ -35,6 +35,7 @@ public class CLI {
     7. Assign a Grade to a Student
     8. Print a Student's Grades
     9. Print a Student's Classes
+    10. Print a Class' Students
 """;
 
     public CLI () {
@@ -101,10 +102,49 @@ public class CLI {
             case "9": {
                 return this.printStudentClasses();
             }
+            case "10": {
+                return this.printClassStudents();
+            }
             default: {
                 throw new Exception(String.format("The action %s has not been recognized!", options[0]));
             }
         }
+    }
+
+    private boolean printClassStudents () throws Exception {
+        var teacherService = TeacherService.getInstance();
+        var teachersClasses = teacherService.getAllTeachersAndAssignedClasses();
+
+        StringBuilder teachersClassesSerialized = new StringBuilder();
+        for (int i = 0; i < teachersClasses.size(); i++) {
+            teachersClassesSerialized.append(String.format("%d. %s\n", i + 1, teachersClasses.get(i)));
+        }
+
+        System.out.println("Teachers and their classes:\n");
+        System.out.println(teachersClassesSerialized);
+
+        System.out.print("Chosen Index: ");
+        int idx = Integer.parseInt(this.scanner.nextLine()) - 1;
+        if (idx < 0 || idx >= teachersClasses.size()) {
+            throw new Exception("Make sure the chosen index is valid!");
+        }
+
+        var chosenClass = teachersClasses.get(idx);
+        
+        var classService = ClassService.getInstance();
+        var students = classService.getStudentsFromClass(chosenClass.teacherId(), chosenClass.classId());
+
+        var studentsSerialized = new StringBuilder();
+
+        for (int i = 0; i < students.size(); i ++) {
+            studentsSerialized.append(
+                String.format("%d. %s\n", i + 1, students.get(i))
+            );
+        }
+
+        System.out.println(studentsSerialized);
+
+        return true;
     }
 
     private boolean printStudentClasses () throws Exception {

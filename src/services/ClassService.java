@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import entities.Class;
 import entities.TeacherClass;
+import entities.Student.Student;
 import repositories.ClassRepository;
 import repositories.ClassStudentRepository;
 
@@ -83,5 +84,9 @@ public class ClassService {
 
     public ArrayList<TeacherClass> getStudentClasses (int studentId) {
         return this.classStudentRepository.getAllByStudentId(studentId);
+    }
+
+    public ArrayList<Student> getStudentsFromClass (int teacherId, int classId) {
+        return this.classStudentRepository.getAllByClass(teacherId, classId);
     }
 }

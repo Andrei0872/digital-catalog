@@ -131,7 +131,7 @@ public class StudentRepository {
         }
     }
 
-    private Student convertResultSetToStudent (ResultSet rs) throws SQLException {
+    public static Student convertResultSetToStudent (ResultSet rs) throws SQLException {
         Student st = new Student(rs.getString("name"), rs.getInt("age"), rs.getString("email"));
         st.setId(rs.getInt("id"));
 

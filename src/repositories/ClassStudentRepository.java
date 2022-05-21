@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import db.Database;
 import entities.TeacherClass;
+import entities.Student.Student;
 
 public class ClassStudentRepository {
     public boolean insertOne (int teacherId, int classId, int studentId) {
@@ -58,6 +59,36 @@ public class ClassStudentRepository {
             }
 
             return studentClasses;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public ArrayList<Student> getAllByClass (int teacherId, int classId) {
+        Connection conn = Database.getConnection();
+        String stmtString = """
+            select s.*
+            from class_student cs
+            join student s
+                on s.id = cs.student_id
+            where cs.teacher_id = ? and cs.class_id = ?
+        """;;
+
+        ArrayList<Student> students = new ArrayList<>();
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement(stmtString);
+            
+            stmt.setInt(1, teacherId);
+            stmt.setInt(2, classId);
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                students.add(StudentRepository.convertResultSetToStudent(rs));
+            }
+
+            return students;
         } catch (SQLException e) {
             e.printStackTrace();
             return null;

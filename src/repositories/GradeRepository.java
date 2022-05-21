@@ -12,9 +12,9 @@ import db.Database;
 import entities.Grade.Grade;
 
 public class GradeRepository {
-    public boolean insertOne (Grade gr) {
+    public int insertOne (Grade gr) {
         Connection conn = Database.getConnection();
-        String stmtString = "INSERT INTO grade (value, inserted_at, modified_at) values (?, ?, ?)";
+        String stmtString = "INSERT INTO grade (value, inserted_at, modified_at) values (?, ?, ?) RETURNING ID";
 
         try {
             PreparedStatement stmt = conn.prepareStatement(stmtString);
@@ -25,15 +25,16 @@ public class GradeRepository {
             stmt.setObject(2, now);
             stmt.setObject(3, now);
 
-            int affectedRows = stmt.executeUpdate();
-            if (affectedRows > 0) {
-                return true;
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                int lastId = rs.getInt(1);
+                return lastId;
             }
 
-            return false;
+            return -1;
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
+            return -1;
         }
     }
 

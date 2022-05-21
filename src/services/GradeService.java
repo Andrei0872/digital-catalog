@@ -8,14 +8,23 @@ import repositories.GradeRepository;
 
 public class GradeService {
     private final GradeRepository gradeRepository;
+    
+    private static GradeService instance;
+    
+    public static GradeService getInstance () {
+        if (instance == null) {
+            instance = new GradeService();
+        }
+
+        return instance;
+    }
 
     public GradeService () {
         this.gradeRepository = new GradeRepository();
     }
 
-    public void insertGrade (Grade t) {
-        boolean isOk = gradeRepository.insertOne(t);
-        System.out.println(isOk);
+    public int insertGrade (Grade t) {
+        return gradeRepository.insertOne(t);
     }
 
     public ArrayList<Grade> getAllGrades () {

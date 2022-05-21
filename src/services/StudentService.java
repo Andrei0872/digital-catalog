@@ -56,4 +56,18 @@ public class StudentService {
     public Student getStudentById (int id) {
         return studentRepository.getOneById(id);
     }
+
+    public String getAllStudentsSerialized () {
+        String teachers = this.getAllStudents()
+            .stream()
+            .map(Object::toString)
+            .reduce((acc, crt) -> acc + "\n" + crt)
+            .orElse("There are no students!");
+
+        return teachers;
+    }
+
+    public boolean doesStudentExist (int id) {
+        return this.getStudentById(id) != null;
+    }
 }

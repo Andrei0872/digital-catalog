@@ -10,10 +10,12 @@ import java.util.Scanner;
 
 import db.Database;
 import entities.Class;
+import entities.Grade.Grade;
 import entities.Student.Student;
 import entities.Teacher.Teacher;
 import repositories.TeacherRepository;
 import services.ClassService;
+import services.GradeService;
 import services.School;
 import services.StudentService;
 import services.TeacherService;
@@ -103,18 +105,34 @@ public class App {
 
         // System.out.println(studentService.getAllStudents());
 
-        var classService = new ClassService();
-        var classes = classService.getAllClasses();
+        // var classService = new ClassService();
+        // var classes = classService.getAllClasses();
         
         // classService.insertClass(c1);
         // classService.insertClass(c2);
 
         // classService.deleteClass(classes.get(0));
 
-        var updatedClass = classes.get(0);
-        updatedClass.setSubject(updatedClass.getSubject().toUpperCase());
-        classService.updateClassById(updatedClass.getId(), updatedClass);
+        // var updatedClass = classes.get(0);
+        // updatedClass.setSubject(updatedClass.getSubject().toUpperCase());
+        // classService.updateClassById(updatedClass.getId(), updatedClass);
 
-        System.out.println(classService.getAllClasses());
+        // System.out.println(classService.getAllClasses());
+
+        var gradeService = new GradeService();
+        var grades = gradeService.getAllGrades();
+
+        // var g1 = new Grade(10);
+        // var g2 = new Grade(7);
+        // gradeService.insertGrade(g1);
+        // gradeService.insertGrade(g2);
+
+        // gradeService.deleteGrade(grades.get(0));
+
+        // var updatedGrade = grades.get(0);
+        // updatedGrade.setValue(5);
+        // gradeService.updateGradeById(updatedGrade.getId(), updatedGrade);
+
+        System.out.println(gradeService.getAllGrades());
     }
 }

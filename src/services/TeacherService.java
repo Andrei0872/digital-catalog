@@ -24,7 +24,11 @@ public class TeacherService {
 
     public void insertTeacher (Teacher t) {
         boolean isOk = teacherRepository.insertOne(t);
-        System.out.println(isOk);
+        if (isOk) {
+            System.out.println("Teacher successfully inserted!");
+        } else {
+            System.out.println(String.format("A problem occurred while adding the teacher(%s)!", t));
+        }
     }
 
     public ArrayList<Teacher> getAllTeachers () {
@@ -33,11 +37,20 @@ public class TeacherService {
 
     public void deleteTeacher (Teacher t) {
         boolean isOk = teacherRepository.deleteOne(t);
-        System.out.println(isOk);
+        if (isOk) {
+            System.out.println("Teacher successfully deleted!");
+        } else {
+            System.out.println(String.format("A problem occurred while deleting the teacher(%s)!", t));
+        }
     }
 
     public void updateTeacherById (int teacherId, Teacher newTeacher) {
         boolean isOk = teacherRepository.updateOneById(teacherId, newTeacher);
+        if (isOk) {
+            System.out.println("Teacher successfully updated!");
+        } else {
+            System.out.println(String.format("A problem occurred while updating the teacher(%s)!", newTeacher));
+        }
     }
 
     public Teacher getTeacherById (int id) {

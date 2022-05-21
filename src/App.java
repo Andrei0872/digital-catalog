@@ -22,7 +22,6 @@ import services.TeacherService;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        System.out.println("hello!");
         App.intialize();
     }
 
@@ -119,8 +118,8 @@ public class App {
 
         // System.out.println(classService.getAllClasses());
 
-        var gradeService = new GradeService();
-        var grades = gradeService.getAllGrades();
+        // var gradeService = new GradeService();
+        // var grades = gradeService.getAllGrades();
 
         // var g1 = new Grade(10);
         // var g2 = new Grade(7);
@@ -133,6 +132,8 @@ public class App {
         // updatedGrade.setValue(5);
         // gradeService.updateGradeById(updatedGrade.getId(), updatedGrade);
 
-        System.out.println(gradeService.getAllGrades());
+        // System.out.println(gradeService.getAllGrades());
+
+        CLI.init();
     }
 }

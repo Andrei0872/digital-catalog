@@ -32,6 +32,29 @@ public class ClassRepository {
         }
     }
 
+    public Class getOneById (int id) {
+        Connection conn = Database.getConnection();
+        String stmtString = "SELECT * from class where id = ?";
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement(stmtString);
+
+            stmt.setInt(1, id);
+
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return convertResultSetToClass(rs);
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
     public ArrayList<Class> getAll () {
         Connection conn = Database.getConnection();
         String stmtString = "SELECT * from class";

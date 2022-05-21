@@ -3,6 +3,7 @@ package services;
 import java.util.ArrayList;
 
 import entities.Class;
+import entities.TeacherClass;
 import entities.Teacher.Teacher;
 import repositories.TeacherClassRepository;
 import repositories.TeacherRepository;
@@ -86,5 +87,9 @@ public class TeacherService {
 
     public ArrayList<Class> getAssignedClasses (int teacherId) {
         return this.teacherClassRepository.getAllByTeacherId(teacherId);
+    }
+
+    public ArrayList<TeacherClass> getAllTeachersAndAssignedClasses () {
+        return this.teacherClassRepository.getAll();
     }
 }

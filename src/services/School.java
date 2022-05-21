@@ -62,17 +62,17 @@ public class School {
     return new TeacherDeserialized(teacher, classes);
   }
 
-  public StudentDeserialized getStudentDeserialized (int studentId) {
-    Student student = students.get(studentId);
-    Collection<GradeDeserialized> grades = student.getGrades()
-      .stream()
-      .map(
-        grade -> new GradeDeserialized(grade, this.teachers.get(grade.assignedBy()), this.classes.get(grade.classId()))
-      )
-      .toList();
+  // public StudentDeserialized getStudentDeserialized (int studentId) {
+  //   Student student = students.get(studentId);
+  //   Collection<GradeDeserialized> grades = student.getGrades()
+  //     .stream()
+  //     // .map(
+  //       // grade -> new GradeDeserialized(grade, this.teachers.get(grade.assignedBy()), this.classes.get(grade.classId()))
+  //     // )
+  //     .toList();
 
-    return new StudentDeserialized(student, grades);
-  }
+  //   return new StudentDeserialized(student, grades);
+  // }
 
   private void ensureClassExists (Class cls) {
     int classId = cls.getId();

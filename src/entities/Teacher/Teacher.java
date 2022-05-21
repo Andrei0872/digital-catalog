@@ -24,17 +24,17 @@ public class Teacher extends SchoolPerson {
   }
 
   public void assignGradeToStudent(int gradeValue, LocalDate gradeDate, Class cls, Student student) throws Exception {
-    boolean teacherHasClass = classesIds.contains(cls.getId());
-    if (!teacherHasClass) {
-      String errMessage = String.format("The teacher(%s) does not have this class(%s)!", this.toString(), cls.toString());
-      throw new Exception(errMessage);
-    }
+    // boolean teacherHasClass = classesIds.contains(cls.getId());
+    // if (!teacherHasClass) {
+    //   String errMessage = String.format("The teacher(%s) does not have this class(%s)!", this.toString(), cls.toString());
+    //   throw new Exception(errMessage);
+    // }
 
-    if (!cls.hasStudent(student)) {
-      String errMessage = String.format("The student(%s) does not belong to this class(%s)!", student.toString(), cls.toString());
-      throw new Exception(errMessage);
-    }
+    // if (!cls.hasStudent(student)) {
+    //   String errMessage = String.format("The student(%s) does not belong to this class(%s)!", student.toString(), cls.toString());
+    //   throw new Exception(errMessage);
+    // }
 
-    student.assignGrade(gradeValue, gradeDate, this.getId(), cls.getId());
+    // student.assignGrade(gradeValue, gradeDate, this.getId(), cls.getId());
   };
 }

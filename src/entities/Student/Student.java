@@ -1,6 +1,5 @@
 package entities.Student;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,9 +13,9 @@ public class Student extends SchoolPerson {
     super(name, age, email);
   }
 
-  public void assignGrade(int gradeValue, LocalDate gradeDate, int teacherId, int classId) {
-    grades.add(new Grade(gradeValue, gradeDate, teacherId, classId));
-  };
+  // public void assignGrade(int gradeValue, LocalDate gradeDate, int teacherId, int classId) {
+  //   grades.add(new Grade(gradeValue, gradeDate, teacherId, classId));
+  // };
 
   public List<Grade> getGrades () {
     return this.grades;

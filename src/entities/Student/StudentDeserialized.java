@@ -9,7 +9,7 @@ public record StudentDeserialized (Student student, Collection<GradeDeserialized
     String result = student.toString() + "\n";
 
     for (GradeDeserialized grade : grades) {
-      result += String.format("\t %s, assigned by %s, at %s, subject: %s\n", grade.grade().value(), grade.teacher().toString(), grade.grade().assigned_at(), grade.cls().getSubject());
+      // result += String.format("\t %s, assigned by %s, at %s, subject: %s\n", grade.grade().value(), grade.teacher().toString(), grade.grade().assigned_at(), grade.cls().getSubject());
     }
 
     return result;

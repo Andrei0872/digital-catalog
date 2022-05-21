@@ -32,6 +32,7 @@ public class CLI {
     4. Assign a Class to a Teacher
     5. Get Classes assigned to a Teacher
     6. Add a Student to a Class
+    7. Assign a Grade to a Student
 """;
 
     public CLI () {
@@ -89,10 +90,63 @@ public class CLI {
             case "6": {
                 return this.addStudentToClass();
             }
+            case "7": {
+                return this.assignGradeToStudent();
+            }
             default: {
                 throw new Exception(String.format("The action %s has not been recognized!", options[0]));
             }
         }
+    }
+
+    private boolean assignGradeToStudent () throws Exception {
+        var studentService = StudentService.getInstance();
+    
+        String students = studentService.getAllStudentsSerialized();
+        System.out.println("Students: \n" + students);
+        
+        System.out.print("Student ID: ");
+        int studentId = Integer.parseInt(this.scanner.nextLine());
+        if (!studentService.doesStudentExist(studentId)) {
+            throw new Exception(String.format("The student with ID = %s does not exist!", studentId));
+        }
+
+        System.out.print("Grade value: ");
+        var value = Integer.parseInt(this.scanner.nextLine());
+        if (value < 1 || value > 10) {
+            throw new Exception(String.format("Invalid grade value: %d", value));
+        }
+
+        var grade = new Grade(value);
+
+        var gradeService = GradeService.getInstance();
+        int lastGradeId = gradeService.insertGrade(grade);
+        if (lastGradeId == -1) {
+            throw new Exception("An error occurred while trying to insert the grade!");
+        }
+
+        var teacherService = TeacherService.getInstance();
+        var teachersClasses = teacherService.getAllTeachersAndAssignedClasses();
+
+        StringBuilder teachersClassesSerialized = new StringBuilder();
+        for (int i = 0; i < teachersClasses.size(); i++) {
+            teachersClassesSerialized.append(String.format("%d. %s\n", i + 1, teachersClasses.get(i)));
+        }
+
+        System.out.println("Teachers and their classes:\n");
+        System.out.println(teachersClassesSerialized);
+
+        System.out.print("Chosen Index: ");
+        int idx = Integer.parseInt(this.scanner.nextLine()) - 1;
+        if (idx < 0 || idx >= teachersClasses.size()) {
+            throw new Exception("Make sure the chosen index is valid!");
+        }
+
+        var chosenClass = teachersClasses.get(idx);
+
+        studentService.assignGradeToStudent(chosenClass.teacherId(), chosenClass.classId(), studentId, lastGradeId);
+
+        return true;
     }
 
     private boolean addStudentToClass () throws Exception {

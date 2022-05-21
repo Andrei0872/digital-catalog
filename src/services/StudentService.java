@@ -3,10 +3,12 @@ package services;
 import java.util.ArrayList;
 
 import entities.Student.Student;
+import repositories.StudentGradeRepository;
 import repositories.StudentRepository;
 
 public class StudentService {
     private final StudentRepository studentRepository;
+    private final StudentGradeRepository studentGradeRepository;
     
     private static StudentService instance;
     
@@ -20,6 +22,7 @@ public class StudentService {
 
     public StudentService () {
         this.studentRepository = new StudentRepository();
+        this.studentGradeRepository = new StudentGradeRepository();
     }
 
     public void insertStudent (Student st) {
@@ -69,5 +72,15 @@ public class StudentService {
 
     public boolean doesStudentExist (int id) {
         return this.getStudentById(id) != null;
+    }
+
+    public void assignGradeToStudent (int teacherId, int classId, int studentId, int gradeId) {
+        boolean isOk = this.studentGradeRepository.insertOne(teacherId, classId, studentId, gradeId);
+        if (isOk) {
+            System.out.println("The grade has been successfully assigned to the student!");
+        } else {
+            String msg = String.format("An error occurred while trying to assign a grade(ID = %s) to a student(ID = %) from a class(Teacher = %s, Class = %s)", gradeId, studentId, teacherId, classId);
+            System.out.println(msg);
+        }
     }
 }

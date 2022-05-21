@@ -1,6 +1,8 @@
 import java.util.Scanner;
 
+import entities.Student.Student;
 import entities.Teacher.Teacher;
+import services.StudentService;
 import services.TeacherService;
 
 public class CLI {
@@ -66,7 +68,7 @@ public class CLI {
                 return this.parseTeacherAction(options[1]);
             }
             case "2": {
-                break;
+                return this.parseStudentAction(options[1]);
             }
             case "3": {
                 break;
@@ -145,6 +147,77 @@ public class CLI {
                 }
 
                 teacherService.deleteTeacher(crtTeacher);
+                break;
+            }
+            
+        }
+
+        return true;
+    }
+
+    private boolean parseStudentAction (String action) throws Exception {
+        var studentService =  StudentService.getInstance();
+        switch (action) {
+            case "1": {
+                String students = studentService.getAllStudents()
+                    .stream()
+                    .map(Object::toString)
+                    .reduce((acc, crt) -> acc + "\n" + crt)
+                    .orElse("There are no students!");
+                System.out.println(students);
+                break;
+            }
+            case "2": {
+                System.out.print("Name: ");
+                var name = this.scanner.nextLine();
+
+                System.out.print("Age: ");
+                var age = this.scanner.nextLine();
+
+                System.out.print("Email: ");
+                var email = this.scanner.nextLine();
+
+                var st = new Student(name, Integer.parseInt(age), email);
+                studentService.insertStudent(st);
+
+                break;
+            }
+            case "3": {
+                System.out.print("The ID of the student that is to be updated: ");
+                var studentId = Integer.parseInt(this.scanner.nextLine());
+
+                var crtStudent = studentService.getStudentById(studentId);
+                if (crtStudent == null) {
+                    throw new Exception(String.format("The student with ID = %s does not exist!", studentId));
+                }
+
+                System.out.print(String.format("New name(default = %s): ", crtStudent.getName()));
+                var name = this.scanner.nextLine();
+                name = name.isEmpty() ? crtStudent.getName() : name;
+
+                System.out.print(String.format("New age(default = %s): ", crtStudent.getAge()));
+                var age = this.scanner.nextLine();
+                age = age.isEmpty() ? Integer.toString(crtStudent.getAge()) : age;
+
+                System.out.print(String.format("New email(default = %s): ", crtStudent.getEmail()));
+                var email = this.scanner.nextLine();
+                email = email.isEmpty() ? crtStudent.getEmail() : email;
+
+                var st = new Student(name, Integer.parseInt(age), email);
+                studentService.updateStudentById(studentId, st);
+
+                break;
+            }
+            case "4": {
+                System.out.print("The ID of the student that is to be deleted: ");
+                var studentId = Integer.parseInt(this.scanner.nextLine());
+
+                var crtStudent = studentService.getStudentById(studentId);
+                if (crtStudent == null) {
+                    throw new Exception(String.format("The student with ID = %s does not exist!", studentId));
+                }
+
+                studentService.deleteStudent(crtStudent);
                 break;
             }
             

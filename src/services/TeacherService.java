@@ -2,6 +2,7 @@ package services;
 
 import java.util.ArrayList;
 
+import entities.Class;
 import entities.Teacher.Teacher;
 import repositories.TeacherClassRepository;
 import repositories.TeacherRepository;
@@ -81,5 +82,9 @@ public class TeacherService {
         } else {
             System.out.println(String.format("An error occurred while trying to assign a class(ID = %S) to a teacher(ID = %)", classId, teacherId));
         }
+    }
+
+    public ArrayList<Class> getAssignedClasses (int teacherId) {
+        return this.teacherClassRepository.getAllByTeacherId(teacherId);
     }
 }

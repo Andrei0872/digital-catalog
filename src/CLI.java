@@ -30,6 +30,7 @@ public class CLI {
         3.3 Update one
         3.4 Delete one
     4. Assign a Class to a Teacher
+    5. Get Classes assigned to a Teacher
 """;
 
     public CLI () {
@@ -81,10 +82,32 @@ public class CLI {
             case "4": {
                 return this.assignClassToTeacher();
             }
+            case "5": {
+                return this.getTeacherAssignedClasses();
+            }
             default: {
                 throw new Exception(String.format("The action %s has not been recognized!", options[0]));
             }
         }
+    }
+
+    private boolean getTeacherAssignedClasses () throws Exception {
+        var teacherService = TeacherService.getInstance();
+    
+        String teachers = teacherService.getAllTeachersSerialized();
+        System.out.println("Teachers: \n" + teachers);
+
+        System.out.print("Teacher ID: ");
+        int teacherId = Integer.parseInt(this.scanner.nextLine());
+        if (!teacherService.doesTeacherExist(teacherId)) {
+            throw new Exception(String.format("The teacher with ID = %s does not exist!", teacherId));
+        }
+
+        var classes = teacherService.getAssignedClasses(teacherId);
+        var classService = ClassService.getInstance();
+        System.out.println("The classes are:\n" + classService.serializeClasses(classes));
+
+        return true;
     }
 
     private boolean assignClassToTeacher () throws Exception {

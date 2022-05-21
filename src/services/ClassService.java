@@ -46,16 +46,24 @@ public class ClassService {
     }
 
     public String getAllClassesSerialized () {
-        String teachers = this.getAllClasses()
-            .stream()
-            .map(Object::toString)
-            .reduce((acc, crt) -> acc + "\n" + crt)
-            .orElse("There are no classes!");
+        String classes = this.serializeClasses(this.getAllClasses());
 
-        return teachers;
+        return classes;
     }
 
     public boolean doesClassExist (int id) {
         return this.getClassById(id) != null;
+    }
+
+    public String serializeClasses (ArrayList<Class> classes) {
+        if (classes == null) {
+            return "";
+        }
+        
+        return classes
+            .stream()
+            .map(Object::toString)
+            .reduce((acc, crt) -> acc + "\n" + crt)
+            .orElse("There are no classes!");
     }
 }

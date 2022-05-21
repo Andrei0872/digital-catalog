@@ -119,7 +119,7 @@ public class ClassRepository {
         }
     }
 
-    private Class convertResultSetToClass (ResultSet rs) throws SQLException {
+    public static Class convertResultSetToClass (ResultSet rs) throws SQLException {
         Class cls = new Class(rs.getString("subject"));
         cls.setId(rs.getInt("id"));
 

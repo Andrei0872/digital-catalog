@@ -8,6 +8,16 @@ import repositories.ClassRepository;
 public class ClassService {
     private final ClassRepository classRepository;
     
+    private static ClassService instance;
+    
+    public static ClassService getInstance () {
+        if (instance == null) {
+            instance = new ClassService();
+        }
+
+        return instance;
+    }
+
     public ClassService () {
         this.classRepository = new ClassRepository();
     }
@@ -29,5 +39,9 @@ public class ClassService {
     public void updateClassById (int classId, Class newClass) {
         boolean isOk = classRepository.updateOneById(classId, newClass);
         System.out.println(isOk);
+    }
+
+    public Class getClassById (int id) {
+        return classRepository.getOneById(id);
     }
 }

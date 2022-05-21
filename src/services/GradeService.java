@@ -8,7 +8,7 @@ import repositories.GradeRepository;
 
 public class GradeService {
     private final GradeRepository gradeRepository;
-    
+
     public GradeService () {
         this.gradeRepository = new GradeRepository();
     }

@@ -1,7 +1,11 @@
 import java.util.Scanner;
 
+import entities.Class;
+import entities.Grade.Grade;
 import entities.Student.Student;
 import entities.Teacher.Teacher;
+import services.ClassService;
+import services.GradeService;
 import services.StudentService;
 import services.TeacherService;
 
@@ -71,17 +75,12 @@ public class CLI {
                 return this.parseStudentAction(options[1]);
             }
             case "3": {
-                break;
+                return this.parseClassAction(options[1]);
             }
             default: {
                 throw new Exception(String.format("The action %s has not been recognized!", options[0]));
             }
         }
-        System.out.println(options[0]);
-        // for (String a : options) {
-        //     System.out.println(a);
-        // }
-        return true;
     }
 
     private boolean parseTeacherAction (String action) throws Exception {
@@ -218,6 +217,63 @@ public class CLI {
                 }
 
                 studentService.deleteStudent(crtStudent);
+                break;
+            }
+            
+        }
+
+        return true;
+    }
+
+    private boolean parseClassAction (String action) throws Exception {
+        var classService = ClassService.getInstance();
+        switch (action) {
+            case "1": {
+                String classes = classService.getAllClasses()
+                    .stream()
+                    .map(Object::toString)
+                    .reduce((acc, crt) -> acc + "\n" + crt)
+                    .orElse("There are no classes!");
+                System.out.println(classes);
+                break;
+            }
+            case "2": {
+                System.out.print("Subject: ");
+                var subject = this.scanner.nextLine();
+
+                var cls = new Class(subject);
+                classService.insertClass(cls);
+
+                break;
+            }
+            case "3": {
+                System.out.print("The ID of the class that is to be updated: ");
+                var classId = Integer.parseInt(this.scanner.nextLine());
+
+                var crtClass = classService.getClassById(classId);
+                if (crtClass == null) {
+                    throw new Exception(String.format("The class with ID = %s does not exist!", classId));
+                }
+
+                System.out.print(String.format("New subject(default = %s): ", crtClass.getSubject()));
+                var subject = this.scanner.nextLine();
+                subject = subject.isEmpty() ? crtClass.getSubject() : subject;
+
+                var cls = new Class(subject);
+                classService.updateClassById(classId, cls);
+
+                break;
+            }
+            case "4": {
+                System.out.print("The ID of the class that is to be deleted: ");
+                var classId = Integer.parseInt(this.scanner.nextLine());
+
+                var crtClass = classService.getClassById(classId);
+                if (crtClass == null) {
+                    throw new Exception(String.format("The class with ID = %s does not exist!", classId));
+                }
+
+                classService.deleteClass(crtClass);
                 break;
             }
             

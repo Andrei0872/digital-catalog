@@ -1,13 +1,22 @@
 package services;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import entities.Teacher.Teacher;
 import repositories.TeacherRepository;
 
 public class TeacherService {
+    private static TeacherService instance;
+    
     private final TeacherRepository teacherRepository;
+
+    public static TeacherService getInstance () {
+        if (instance == null) {
+            instance = new TeacherService();
+        }
+
+        return instance;
+    }
     
     public TeacherService () {
         this.teacherRepository = new TeacherRepository();
